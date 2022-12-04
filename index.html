@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500;700;900&display=swap" rel="stylesheet">
+    <style> @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500;700;900&display=swap'); </style>
+    <title>📚 Library</title>
+</head>
+<body>
+    <div class="contianer">
+        <div class="header">
+            <div class="title">
+                <img src="icons/book-open-page-variant.png" alt="logo">
+                <p>Library</p>
+            </div>
+        </div>
+        <div class="book-display">
+            <div class="books">
+                
+            </div>
+            <div class="form">
+                <button class="add-book-btn">+ Add Book</button>
+                <div class="book-form" style="display: none;">
+                    <form id="add-book">
+                        <input type="text" name="title" placeholder="Title" required>
+                        <input type="text" name="author" placeholder="Author" required>
+                        <input type="text" name="pages" placeholder="Pages" required>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
