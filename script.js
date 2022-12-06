@@ -1,15 +1,24 @@
+
+
+
 let myLibrary = [];
 
-function Book(title, author, pages, read) {
-    this.Title = title;
-    this.Author = author;
-    this.Pages = pages;
-    this.Read = read;
+function addLocalStorage() {
+  // localStorage => save things in key value pairs - key = library : myLibrary
+  myLibrary = JSON.parse(localStorage.getItem("library")) || [];
+  saveAndDisplayBooks();
+}
+
+function Book(title, author, pages, read){
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
 }
 
 function addBookToLibrary(title, author, pages, read) {
-    let book = new Book(title, author, pages, read);
-    myLibrary.push(book);
+    myLibrary.push(new Book(title, author, pages, read));
+    saveAndDisplayBooks();
 }
 
 function displayBook() {
@@ -28,12 +37,26 @@ function displayBook() {
         }
     })
 }
+const subBtn = document.getElementById("submit-btn");
+document.getElementById("submit-btn").addEventListener("click", function(event){
+    event.preventDefault()
+  });
+subBtn.addEventListener('click', convertData)
 
+function convertData() {
+    let title = document.getElementById("title").value;
+    let author = document.getElementById("author").value;
+    let pages = document.getElementById("pages").value;
+    let read= document.getElementById("read").checkbox;
 
-addBookToLibrary("Dior", "Steven Dior", 356, "Read");
-addBookToLibrary("Black Pen", "Robert E. Lee", 1065, "Not Read" );
-addBookToLibrary("Game of Thrones", "George R.R. Martin", 2156, "Read");
+    addBookToLibrary(title, author, pages, read);
+}
 
-console.log("End of array ", myLibrary);
+function saveAndDisplayBooks() {
+    localStorage.setItem("library", JSON.stringify(myLibrary));
+    displayBook();
+  }
+  
 
-displayBook();
+addBookToLibrary("title", "author", "pages", "read");
+addBookToLibrary("title", "author", "pages", "read");

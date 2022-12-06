@@ -21,20 +21,25 @@
             </div>
         </div>
         <div class="book-display">
-            <div class="books">
-                
-            </div>
-            <div class="form">
-                <button class="add-book-btn">+ Add Book</button>
-                <div class="book-form" style="display: none;">
-                    <form id="add-book">
-                        <input type="text" name="title" placeholder="Title" required>
-                        <input type="text" name="author" placeholder="Author" required>
-                        <input type="text" name="pages" placeholder="Pages" required>
+            <div class="form-container">
+                <button class="add-book-btn" >+ Add Book</button>
+                <div id="form-display" style="display:;">
+                    <form id="form">
+                        <input type="text" name="title" id="title" placeholder="Title">
+                        <input type="text" name="author" id="author" placeholder="Author">
+                        <input type="number" name="pages" id="pages" placeholder="Pages">
+                        <label class="switch">
+                            <input type="checkbox" name="read" id="read">
+                        </label>
+                        <input type="submit" name="submit-btn" id="submit-btn">
                     </form>
                 </div>
             </div>
+            <div class="books">
+                
+            </div>
         </div>
+        <div class="tint"></div>
     </div>
 </body>
 </html>
