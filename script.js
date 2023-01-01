@@ -24,8 +24,15 @@ function addBookToLibrary(title, author, pages, read) {
 function displayBook() {
     const books = document.querySelector(".books");
 
+    const removeDivs = document.querySelectorAll(".card");
+    for (let i = 0 ; i < removeDivs.length; i ++) {
+        removeDivs[i].remove();
+    }
 
     myLibrary.forEach(myLibrary => {
+
+
+
         const card = document.createElement("div");
         card.classList.add("card");
         books.appendChild(card);
@@ -35,19 +42,46 @@ function displayBook() {
             para.textContent = (`${key}: ${myLibrary[key]}`);
             card.appendChild(para);
         }
+
+        const removeBookBtn = document.createElement("button");
+        removeBookBtn.classList.add("remove-book-btn");
+        removeBookBtn.textContent = "Delete";
+        card.appendChild(removeBookBtn); 
     })
 }
+
+
+const addBookBtn = document.querySelector(".add-book-btn");
+addBookBtn.addEventListener("click", displayFrom);
+
+function displayFrom() {
+    document.getElementById("form-display").style.display = "";
+}
+
 const subBtn = document.getElementById("submit-btn");
 document.getElementById("submit-btn").addEventListener("click", function(event){
     event.preventDefault()
   });
-subBtn.addEventListener('click', convertData)
+subBtn.addEventListener('click', convertData);
+subBtn.addEventListener('click', undisplayForm);
+
+function undisplayForm(){
+    document.getElementById("form-display").style.display = "none";
+}
+
 
 function convertData() {
     let title = document.getElementById("title").value;
     let author = document.getElementById("author").value;
     let pages = document.getElementById("pages").value;
-    let read= document.getElementById("read").checkbox;
+
+    let read;
+
+    if(document.getElementById("read").checked) {
+        read = true
+    } else {
+        read = false
+    }
 
     addBookToLibrary(title, author, pages, read);
 }
@@ -58,5 +92,3 @@ function saveAndDisplayBooks() {
   }
   
 
-addBookToLibrary("title", "author", "pages", "read");
-addBookToLibrary("title", "author", "pages", "read");
