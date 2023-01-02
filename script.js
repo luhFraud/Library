@@ -2,12 +2,8 @@
 
 
 let myLibrary = [];
+const books = document.querySelector(".books");
 
-function addLocalStorage() {
-  // localStorage => save things in key value pairs - key = library : myLibrary
-  myLibrary = JSON.parse(localStorage.getItem("library")) || [];
-  saveAndDisplayBooks();
-}
 
 function Book(title, author, pages, read){
     this.title = title;
@@ -18,19 +14,14 @@ function Book(title, author, pages, read){
 
 function addBookToLibrary(title, author, pages, read) {
     myLibrary.push(new Book(title, author, pages, read));
-    saveAndDisplayBooks();
+    displayBook();
 }
-
+let x = 0;
 function displayBook() {
-    const books = document.querySelector(".books");
-
-    const removeDivs = document.querySelectorAll(".card");
-    for (let i = 0 ; i < removeDivs.length; i ++) {
-        removeDivs[i].remove();
-    }
+    
+    clearDisplay();
 
     myLibrary.forEach(myLibrary => {
-
 
 
         const card = document.createElement("div");
@@ -44,9 +35,19 @@ function displayBook() {
         }
 
         const removeBookBtn = document.createElement("button");
-        removeBookBtn.classList.add("remove-book-btn");
+        removeBookBtn.classList.add("remove-book-btn"); 
+        removeBookBtn.setAttribute('id', `remove-btn-${x}`);
+        console.log(removeBookBtn);
         removeBookBtn.textContent = "Delete";
         card.appendChild(removeBookBtn); 
+
+        document.querySelector('#remove-btn-' + x).addEventListener('click', function() {
+            let removeEl = this.parentNode;
+            console.log(removeEl); 
+            books.removeChild(removeEl);
+            
+        })  
+        x++;
     })
 }
 
@@ -86,9 +87,10 @@ function convertData() {
     addBookToLibrary(title, author, pages, read);
 }
 
-function saveAndDisplayBooks() {
-    localStorage.setItem("library", JSON.stringify(myLibrary));
-    displayBook();
-  }
+function clearDisplay() {
+    while (books.lastChild) {
+        books.removeChild(books.lastChild);
+    }
+}
   
 
