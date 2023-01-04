@@ -17,37 +17,86 @@ function addBookToLibrary(title, author, pages, read) {
     displayBook();
 }
 let x = 0;
+let cardCheckbox = 0;
 function displayBook() {
-    
     clearDisplay();
+    
 
     myLibrary.forEach(myLibrary => {
-
-
+        
         const card = document.createElement("div");
         card.classList.add("card");
+        card.setAttribute('id', `card-${cardCheckbox}`);
         books.appendChild(card);
-        for (let key in myLibrary) {
-            console.log(`${key}: ${myLibrary[key]}`);
-            const para = document.createElement("p");
-            para.textContent = (`${key}: ${myLibrary[key]}`);
-            card.appendChild(para);
+        
+        const titleH2 = document.createElement("h2");
+        titleH2.textContent = `${myLibrary.title}`
+        card.appendChild(titleH2);
+
+        const authorP = document.createElement("p");
+        authorP.textContent = `${myLibrary.author}`
+        card.appendChild(authorP);
+        
+        const pagesP = document.createElement("p");
+        pagesP.textContent = `# of Pages: ${myLibrary.pages}`
+        card.appendChild(pagesP);
+
+
+        
+        let readShow = document.createElement("input");
+        readShow.classList.add("read-checkbox");
+        readShow.setAttribute('type', 'checkbox');
+        
+        
+
+        readShow.setAttribute('id', `readShow-checkbox-${cardCheckbox}`);
+
+        const readP = document.createElement('p');
+        readP.textContent = 'Read?'
+        card.appendChild(readP);
+        card.appendChild(readShow);
+        if(myLibrary.read === true) {
+            card.style.backgroundColor = '#32CD32'
+            console.log("this card is true")
+
+            readShow.checked = true
+        } else {
+            card.style.backgroundColor = '#D2042D'
+            console.log("this card is false")
+            readShow.checked = false
         }
+        
+
+        
+        document.querySelector('#readShow-checkbox-' + cardCheckbox)
+        .addEventListener('click', function(){
+            let changeReadStatus = this.parentNode;
+            console.log(changeReadStatus);
+            if (readShow.checked === true) {
+                changeReadStatus.style.background = '#32CD32'
+            } else {
+                changeReadStatus.style.background = '#D2042D'
+            }
+
+        })
+        
 
         const removeBookBtn = document.createElement("button");
         removeBookBtn.classList.add("remove-book-btn"); 
         removeBookBtn.setAttribute('id', `remove-btn-${x}`);
-        console.log(removeBookBtn);
         removeBookBtn.textContent = "Delete";
         card.appendChild(removeBookBtn); 
 
         document.querySelector('#remove-btn-' + x).addEventListener('click', function() {
-            let removeEl = this.parentNode;
-            console.log(removeEl); 
+            let removeEl = this.parentNode; 
             books.removeChild(removeEl);
+            removeMoveFromArray();
             
         })  
         x++;
+        cardCheckbox++;
+        
+
     })
 }
 
@@ -62,8 +111,14 @@ function displayFrom() {
 const subBtn = document.getElementById("submit-btn");
 document.getElementById("submit-btn").addEventListener("click", function(event){
     event.preventDefault()
+
+    convertData();
+    resetForm();
+
+   
+
   });
-subBtn.addEventListener('click', convertData);
+//subBtn.addEventListener('click', convertData);
 subBtn.addEventListener('click', undisplayForm);
 
 function undisplayForm(){
@@ -76,21 +131,37 @@ function convertData() {
     let author = document.getElementById("author").value;
     let pages = document.getElementById("pages").value;
 
-    let read;
+    let read = document.getElementById("read").checked;
 
-    if(document.getElementById("read").checked) {
-        read = true
-    } else {
-        read = false
-    }
+    //let checkboxValue = document.getElementById("read").value
+
+    
+
 
     addBookToLibrary(title, author, pages, read);
 }
 
+function resetForm() {
+    const titleInput = document.getElementById('title');
+    const authorInput = document.getElementById('author');
+    const pagesInput = document.getElementById('pages');
+    const readInput = document.getElementById('read');
+
+    titleInput.value = '';
+    authorInput.value = '';
+    pagesInput.value = '';
+    readInput.checked= '';
+}
 function clearDisplay() {
     while (books.lastChild) {
         books.removeChild(books.lastChild);
     }
 }
+
   
+function removeMoveFromArray(x) {
+    myLibrary.splice(x , 1);
+}
+
+
 
